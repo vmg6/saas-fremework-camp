@@ -1,6 +1,8 @@
 package tests;
 
-import base.APIEndpoints;
+import base.controller.APIEndpoints;
+import base.core.TestBaseTNG;
+import com.google.inject.Inject;
 import maintanance_objects.User;
 import org.testng.annotations.Test;
 
@@ -10,11 +12,13 @@ import static org.hamcrest.core.IsEqual.equalTo;
 /**
  * Created by @v.matviichenko
  */
-public class TestCoverAPIEndpoints {
+public class TestCoverAPIEndpoints extends TestBaseTNG{
     private static final String FIRST_NAME = "Homer";
     private static final String LAST_NAME = "Simpson";
     private static Integer USER_ID;
-    APIEndpoints apiEndpoints = new APIEndpoints();
+
+    @Inject
+    private APIEndpoints apiEndpoints;
 
     @Test
     public void testBaseAPIDescription() {
@@ -33,6 +37,5 @@ public class TestCoverAPIEndpoints {
                 .body("data.info.email[0]", is(FIRST_NAME + "." + LAST_NAME + "@gmail.com"))
                 .body("data.info.firstName[0]", is(FIRST_NAME))
                 .body("data.info.lastName[0]", is(LAST_NAME));
-
     }
 }

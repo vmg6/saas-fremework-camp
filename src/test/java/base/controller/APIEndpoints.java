@@ -1,5 +1,6 @@
-package base;
+package base.controller;
 
+import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -9,6 +10,11 @@ import static com.jayway.restassured.RestAssured.given;
  */
 public class APIEndpoints {
     private final String API_ENDPOINT_PATH = "http://172.18.0.1:8182";
+
+    @Inject
+    public APIEndpoints() {
+
+    }
 
     public ValidatableResponse getHealthCheck() {
         return  given().get(API_ENDPOINT_PATH + "/healthcheck").then();
