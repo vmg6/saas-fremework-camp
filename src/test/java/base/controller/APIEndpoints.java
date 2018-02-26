@@ -27,4 +27,20 @@ public class APIEndpoints {
     public ValidatableResponse getContactById(Integer userId) {
         return given().get(API_ENDPOINT_PATH + "/api/v1/contacts/" + userId).then();
     }
+
+    public ValidatableResponse findContact(String firstName, String email) {
+        return given().get(API_ENDPOINT_PATH + "/api/v1/contacts?firstName=" + firstName + "&email=" + email).then();
+    }
+
+    public ValidatableResponse updateContact(String requestBody, Integer userId) {
+        return given().contentType("application/json").body(requestBody).put(API_ENDPOINT_PATH + "/api/v1/contacts/" + userId).then();
+    }
+
+    public ValidatableResponse deleteContact(Integer userId) {
+        return given().delete(API_ENDPOINT_PATH + "/api/v1/contacts/" + userId).then();
+    }
+
+    public ValidatableResponse patchContact(String requestBody, Integer userId) {
+        return given().contentType("application/json").body(requestBody).patch(API_ENDPOINT_PATH + "/api/v1/contacts/" + userId).then();
+    }
 }

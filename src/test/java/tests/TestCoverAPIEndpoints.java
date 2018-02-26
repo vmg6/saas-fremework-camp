@@ -15,6 +15,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class TestCoverAPIEndpoints extends TestBaseTNG{
     private static final String FIRST_NAME = "Homer";
     private static final String LAST_NAME = "Simpson";
+    private static final String EMAIL = FIRST_NAME + "." + LAST_NAME + "@gmail.com";
     private static Integer USER_ID;
 
     @Inject
@@ -34,8 +35,22 @@ public class TestCoverAPIEndpoints extends TestBaseTNG{
         apiEndpoints.getContactById(USER_ID)
                 .statusCode(200)
                 .body("data.id[0]", is(USER_ID))
-                .body("data.info.email[0]", is(FIRST_NAME + "." + LAST_NAME + "@gmail.com"))
+                .body("data.info.email[0]", is(EMAIL))
                 .body("data.info.firstName[0]", is(FIRST_NAME))
                 .body("data.info.lastName[0]", is(LAST_NAME));
+
+        apiEndpoints.findContact(FIRST_NAME, EMAIL)
+                .statusCode(200)
+                .body("data.info.email[0]", is(EMAIL))
+                .body("data.info.firstName[0]", is(FIRST_NAME))
+                .body("data.info.lastName[0]", is(LAST_NAME));
+
+        user.setFirstName("Bart");
+        user.setLastName("Simpson");
+        apiEndpoints.updateContact(user.getCreateBodyRequest(), USER_ID)
+                .statusCode(200);
+
+        apiEndpoints.deleteContact(USER_ID).statusCode(200);
+
     }
 }
