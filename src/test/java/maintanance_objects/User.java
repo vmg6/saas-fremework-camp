@@ -32,7 +32,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getCreateBodyRequest() {
+    public String getApiBodyRequest() {
         return String.format("{\"email\":\"%s.%s@gmail.com\",\"firstName\":\"%s\",\"lastName\":\"%s\"}",
                 this.firstName, this.lastName, this.firstName, this.lastName);
     }
