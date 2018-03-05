@@ -2,6 +2,7 @@ package tests;
 
 import base.controller.APIEndpoints;
 import base.core.TestBaseTNG;
+import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import maintanance_objects.Contact;
@@ -19,8 +20,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
  */
 public class TestCoverAPIEndpoints extends TestBaseTNG {
     private final String ENDPOINTS_SOURCE = "http://host:port/api/v1/contacts/";
-    private final String FIRST_NAME = "Homer";
-    private final String LAST_NAME = "Simpson";
+    private Faker faker = new Faker();
 
     @Inject
     private APIEndpoints apiEndpoints;
@@ -31,14 +31,14 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     }
 
     @Test
-    public void testBaseAPIDescription() {
+    public void testHealthCheck() {
         apiEndpoints.getHealthCheck().statusCode(200).assertThat().body(equalTo("live"));
     }
 
     @Test
     public void testCreateContact() {
         //act
-        Contact contact = new Contact(FIRST_NAME, LAST_NAME);
+        Contact contact = new Contact(faker.name().firstName(), faker.name().lastName());
 
         //assert
         apiEndpoints.createContact(contact.getRequestBody())
@@ -52,8 +52,9 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     @Test
     public void testGetContactById() {
         //act
-        Contact contact = new Contact(FIRST_NAME, LAST_NAME);
+        Contact contact = new Contact(faker.name().firstName(), faker.name().lastName());
         Integer contactId = getContactID(contact);
+        contact.setId(contactId);
 
         //assert
         assertEndpointResponse(apiEndpoints.getContactById(contactId), 200, contact);
@@ -62,36 +63,39 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     @Test
     public void testFindContact() {
         //act
-        Contact contact = new Contact(FIRST_NAME, LAST_NAME);
-        apiEndpoints.createContact(contact.getRequestBody());
+        String firstName = faker.name().firstName();
+        Contact contact = new Contact(firstName, faker.name().lastName());
+        Integer contactId = getContactID(contact);
+        contact.setId(contactId);
 
         //assert
-        assertEndpointResponse(apiEndpoints.findContact(FIRST_NAME, contact.getEmail()), 200, contact);
+        assertEndpointResponse(apiEndpoints.findContact(firstName, contact.getEmail()), 200, contact);
     }
 
     @Test
     public void testUpdateContact() {
         //act
-        Contact contact = new Contact("Homer", "Simpson");
-        Integer userId = getContactID(contact);
+        Contact contact = new Contact(faker.name().firstName(), faker.name().lastName());
+        Integer contactId = getContactID(contact);
+        contact.setId(contactId);
 
         //assert
-        assertEndpointResponse(apiEndpoints.updateContact(contact.getRequestBody(), userId), 200, contact);
+        assertEndpointResponse(apiEndpoints.updateContact(contact.getRequestBody(), contactId), 200, contact);
 
-        apiEndpoints.deleteContact(userId).statusCode(200);
-        apiEndpoints.getContactById(userId).statusCode(404);
+        apiEndpoints.deleteContact(contactId).statusCode(200);
+        apiEndpoints.getContactById(contactId).statusCode(404);
     }
 
-    private void assertEndpointResponse(ValidatableResponse response, Integer status, Contact user) {
+    private void assertEndpointResponse(ValidatableResponse response, Integer status, Contact contact) {
         response.statusCode(status)
-                .body("data.id[0]", is(user.getId()))
-                .body("data.info.email[0]", is(user.getEmail()))
-                .body("data.info.firstName[0]", is(user.getFirstName()))
-                .body("data.info.lastName[0]", is(user.getLastName()))
-                .body("data.refs.patch[0]", is(ENDPOINTS_SOURCE + user.getId()))
-                .body("data.refs.get[0]", is(ENDPOINTS_SOURCE + user.getId()))
-                .body("data.refs.delete[0]", is(ENDPOINTS_SOURCE + user.getId()))
-                .body("data.refs.put[0]", is(ENDPOINTS_SOURCE + user.getId()))
+                .body("data.id[0]", is(contact.getId()))
+                .body("data.info.email[0]", is(contact.getEmail()))
+                .body("data.info.firstName[0]", is(contact.getFirstName()))
+                .body("data.info.lastName[0]", is(contact.getLastName()))
+                .body("data.refs.patch[0]", is(ENDPOINTS_SOURCE + contact.getId()))
+                .body("data.refs.get[0]", is(ENDPOINTS_SOURCE + contact.getId()))
+                .body("data.refs.delete[0]", is(ENDPOINTS_SOURCE + contact.getId()))
+                .body("data.refs.put[0]", is(ENDPOINTS_SOURCE + contact.getId()))
                 .body("status", is(200));
     }
 
