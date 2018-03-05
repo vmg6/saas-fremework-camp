@@ -3,17 +3,27 @@ package maintanance_objects;
 /**
  * Created by @v.matviichenko
  */
-public class User {
+public class Contact {
+    private Integer id;
     private String firstName;
     private String lastName;
+    private String email;
 
-    public User() {
+    public Contact() {
 
     }
 
-    public User(String firstName, String lastName) {
+    public Contact(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -32,7 +42,16 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getApiBodyRequest() {
+    public String getEmail() {
+
+        return this.firstName + "." + this.lastName + "@gmail.com";
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRequestBody() {
         return String.format("{\"email\":\"%s.%s@gmail.com\",\"firstName\":\"%s\",\"lastName\":\"%s\"}",
                 this.firstName, this.lastName, this.firstName, this.lastName);
     }

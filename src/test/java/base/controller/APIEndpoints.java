@@ -28,6 +28,10 @@ public class APIEndpoints {
         return given().get(API_ENDPOINT_PATH + "/api/v1/contacts/" + userId).then();
     }
 
+    public ValidatableResponse getContacts() {
+        return given().get(API_ENDPOINT_PATH + "/api/v1/contacts/").then();
+    }
+
     public ValidatableResponse findContact(String firstName, String email) {
         return given().get(API_ENDPOINT_PATH + "/api/v1/contacts?firstName=" + firstName + "&email=" + email).then();
     }
