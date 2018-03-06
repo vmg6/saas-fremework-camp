@@ -5,7 +5,7 @@ import base.core.TestBaseTNG;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
-import maintanance_objects.Contact;
+import rest.ContactAPI;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -18,7 +18,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 /**
  * Created by @v.matviichenko
  */
-public class TestCoverAPIEndpoints extends TestBaseTNG {
+public class TestContactAPI extends TestBaseTNG {
     private final String ENDPOINTS_SOURCE = "http://host:port/api/v1/contacts/";
     private Faker faker = new Faker();
 
@@ -38,7 +38,7 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     @Test
     public void testCreateContact() {
         //act
-        Contact contact = new Contact(faker.name().firstName(), faker.name().lastName());
+        ContactAPI contact = new ContactAPI(faker.name().firstName(), faker.name().lastName());
 
         //assert
         apiEndpoints.createContact(contact.getRequestBody())
@@ -52,7 +52,7 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     @Test
     public void testGetContactById() {
         //act
-        Contact contact = new Contact(faker.name().firstName(), faker.name().lastName());
+        ContactAPI contact = new ContactAPI(faker.name().firstName(), faker.name().lastName());
         Integer contactId = getContactID(contact);
         contact.setId(contactId);
 
@@ -64,7 +64,7 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     public void testFindContact() {
         //act
         String firstName = faker.name().firstName();
-        Contact contact = new Contact(firstName, faker.name().lastName());
+        ContactAPI contact = new ContactAPI(firstName, faker.name().lastName());
         Integer contactId = getContactID(contact);
         contact.setId(contactId);
 
@@ -75,7 +75,7 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
     @Test
     public void testUpdateContact() {
         //act
-        Contact contact = new Contact(faker.name().firstName(), faker.name().lastName());
+        ContactAPI contact = new ContactAPI(faker.name().firstName(), faker.name().lastName());
         Integer contactId = getContactID(contact);
         contact.setId(contactId);
 
@@ -86,7 +86,7 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
         apiEndpoints.getContactById(contactId).statusCode(404);
     }
 
-    private void assertEndpointResponse(ValidatableResponse response, Integer status, Contact contact) {
+    private void assertEndpointResponse(ValidatableResponse response, Integer status, ContactAPI contact) {
         response.statusCode(status)
                 .body("data.id[0]", is(contact.getId()))
                 .body("data.info.email[0]", is(contact.getEmail()))
@@ -106,7 +106,7 @@ public class TestCoverAPIEndpoints extends TestBaseTNG {
         }
     }
 
-    private Integer getContactID(Contact contact) {
+    private Integer getContactID(ContactAPI contact) {
         return apiEndpoints.createContact(contact.getRequestBody())
                 .statusCode(201)
                 .extract().jsonPath()

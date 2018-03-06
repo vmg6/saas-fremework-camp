@@ -1,19 +1,19 @@
-package maintanance_objects;
+package rest;
 
 /**
  * Created by @v.matviichenko
  */
-public class Contact {
+public class ContactAPI {
     private Integer id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public Contact() {
+    public ContactAPI() {
 
     }
 
-    public Contact(String firstName, String lastName) {
+    public ContactAPI(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
