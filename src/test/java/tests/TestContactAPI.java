@@ -1,16 +1,17 @@
 package tests;
 
-import base.controller.APIEndpoints;
+import base.controller.ContactAPI;
 import base.core.TestBaseTNG;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
-import rest.ContactAPI;
+import helpers.ContactObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -23,7 +24,7 @@ public class TestContactAPI extends TestBaseTNG {
     private Faker faker = new Faker();
 
     @Inject
-    private APIEndpoints apiEndpoints;
+    private ContactAPI apiEndpoints;
 
     @BeforeClass
     public void setUp() {
@@ -37,10 +38,12 @@ public class TestContactAPI extends TestBaseTNG {
 
     @Test
     public void testCreateContact() {
-        //act
-        ContactAPI contact = new ContactAPI(faker.name().firstName(), faker.name().lastName());
+        //GIVEN
+        ContactObject contact = new ContactObject(faker.name().firstName(), faker.name().lastName());
 
-        //assert
+        //WHEN
+
+        //THEN
         apiEndpoints.createContact(contact.getRequestBody())
                 .statusCode(201)
                 .body("data.id[0]", is(greaterThanOrEqualTo(0)))
@@ -51,42 +54,48 @@ public class TestContactAPI extends TestBaseTNG {
 
     @Test
     public void testGetContactById() {
-        //act
-        ContactAPI contact = new ContactAPI(faker.name().firstName(), faker.name().lastName());
+        //GIVEN
+        ContactObject contact = new ContactObject(faker.name().firstName(), faker.name().lastName());
+
+        //WHEN
         Integer contactId = getContactID(contact);
         contact.setId(contactId);
 
-        //assert
+        //THEN
         assertEndpointResponse(apiEndpoints.getContactById(contactId), 200, contact);
     }
 
     @Test
     public void testFindContact() {
-        //act
+        //GIVEN
         String firstName = faker.name().firstName();
-        ContactAPI contact = new ContactAPI(firstName, faker.name().lastName());
+        ContactObject contact = new ContactObject(firstName, faker.name().lastName());
+
+        //WHEN
         Integer contactId = getContactID(contact);
         contact.setId(contactId);
 
-        //assert
+        //THEN
         assertEndpointResponse(apiEndpoints.findContact(firstName, contact.getEmail()), 200, contact);
     }
 
     @Test
     public void testUpdateContact() {
-        //act
-        ContactAPI contact = new ContactAPI(faker.name().firstName(), faker.name().lastName());
+        //GIVEN
+        ContactObject contact = new ContactObject(faker.name().firstName(), faker.name().lastName());
+
+        //WHEN
         Integer contactId = getContactID(contact);
         contact.setId(contactId);
 
-        //assert
+        //THEN
         assertEndpointResponse(apiEndpoints.updateContact(contact.getRequestBody(), contactId), 200, contact);
 
         apiEndpoints.deleteContact(contactId).statusCode(200);
         apiEndpoints.getContactById(contactId).statusCode(404);
     }
 
-    private void assertEndpointResponse(ValidatableResponse response, Integer status, ContactAPI contact) {
+    private void assertEndpointResponse(ValidatableResponse response, Integer status, ContactObject contact) {
         response.statusCode(status)
                 .body("data.id[0]", is(contact.getId()))
                 .body("data.info.email[0]", is(contact.getEmail()))
@@ -101,12 +110,15 @@ public class TestContactAPI extends TestBaseTNG {
 
     private void clearSetUp() {
         ArrayList<Integer> contactIDs = apiEndpoints.getContacts().statusCode(200).extract().jsonPath().get("data.id");
-        for (Integer contactId : contactIDs) {
-            apiEndpoints.deleteContact(contactId).statusCode(200);
+        if(!contactIDs.isEmpty()) {
+            for (Integer contactId : contactIDs) {
+                apiEndpoints.deleteContact(contactId).statusCode(200);
+            }
         }
+        LOGGER.info("List contact is empty");
     }
 
-    private Integer getContactID(ContactAPI contact) {
+    private Integer getContactID(ContactObject contact) {
         return apiEndpoints.createContact(contact.getRequestBody())
                 .statusCode(201)
                 .extract().jsonPath()

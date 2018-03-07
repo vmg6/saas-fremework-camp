@@ -1,6 +1,6 @@
 package base.core;
 
-import base.controller.APIEndpoints;
+import base.controller.ContactAPI;
 import com.google.inject.Inject;
 import org.testng.annotations.Guice;
 
@@ -9,7 +9,8 @@ import org.testng.annotations.Guice;
  */
 @Guice(modules = GuiceBinderModule.class)
 public abstract class TestBaseTNG {
+    protected TestProperties properties = TestProperties.getInstance();
 
     @Inject
-    protected APIEndpoints apiEndpoints;
+    protected ContactAPI apiEndpoints;
 }

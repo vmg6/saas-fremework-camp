@@ -1,19 +1,19 @@
-package rest;
+package helpers;
 
 /**
  * Created by @v.matviichenko
  */
-public class ContactAPI {
+public class ContactObject {
     private Integer id;
     private String firstName;
     private String lastName;
     private String email;
 
-    public ContactAPI() {
+    public ContactObject() {
 
     }
 
-    public ContactAPI(String firstName, String lastName) {
+    public ContactObject(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
