@@ -1,12 +1,14 @@
 package tests;
 
 import base.controller.ContactAPI;
+import base.core.ReportAllureListenerImpl;
 import base.core.TestBaseTNG;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactObject;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 /**
  * Created by @v.matviichenko
  */
+@Listeners({ReportAllureListenerImpl.class})
 public class TestContactAPI extends TestBaseTNG {
     private final String ENDPOINTS_SOURCE = "http://host:port/api/v1/contacts/";
     private Faker faker = new Faker();

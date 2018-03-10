@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GL ProCamp" >
+    <listeners>
+        <listener class-name="base.core.ReportAllureListenerImpl"/>
+        <!--<listener class-name="utils.Listeners.AnnotationTransformer"/>-->
+    </listeners>
+
+    <test name="RestAPI">
+        <classes>
+            <class name="tests.TestContactAPI"/>
+        </classes>
+    </test>
+</suite>
