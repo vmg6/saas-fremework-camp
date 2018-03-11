@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="GL ProCamp" >
     <listeners>
-        <listener class-name="base.core.ReportAllureListenerImpl"/>
+        <listener class-name="base.listners.ReportAllureListenerImpl"/>
         <!--<listener class-name="utils.Listeners.AnnotationTransformer"/>-->
     </listeners>
 

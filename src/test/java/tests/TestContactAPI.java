@@ -1,12 +1,15 @@
 package tests;
 
 import base.controller.ContactAPI;
-import base.core.ReportAllureListenerImpl;
 import base.core.TestBaseTNG;
+import base.listners.ReportAllureListenerImpl;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactObject;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -35,11 +38,15 @@ public class TestContactAPI extends TestBaseTNG {
     }
 
     @Test
+    @Severity(SeverityLevel.MINOR)
+    @Description("Health Check status")
     public void testHealthCheck() {
         apiEndpoints.getHealthCheck().statusCode(200).assertThat().body(equalTo("live"));
     }
 
     @Test
+    @Severity(SeverityLevel.MINOR)
+    @Description("Create new contact")
     public void testCreateContact() {
         //GIVEN
         ContactObject contact = new ContactObject(faker.name().firstName(), faker.name().lastName());
