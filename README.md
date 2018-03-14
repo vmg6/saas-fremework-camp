@@ -15,3 +15,6 @@ One can configure test execution against specific environment using environment 
 | --------------------  | --------- | ------------------------ |------------------------------------------------------ |
 |  ENVIRONMENT          | yes       | none                     | env1  |  
 
+
+# Run test
+   mvn clean test -Dservers=env1
