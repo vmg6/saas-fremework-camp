@@ -8,7 +8,7 @@ import java.util.Properties;
  */
 public class TestProperties {
     private static final String SUFIX = ".properties";
-    private Properties serverProperties = loadProperties("config/server", System.getProperty("servers"));
+    private Properties serverProperties = loadProperties("config/server", System.getProperty("servers")); // TODO Not able to see property file 'servers'
     private Properties commonProperties = loadProperties("config/common", "common");
     private static TestProperties TEST_PROPERTIES = new TestProperties();
 

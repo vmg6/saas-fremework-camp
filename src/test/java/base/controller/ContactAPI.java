@@ -29,7 +29,7 @@ public class ContactAPI extends TestBaseTNG {
     }
 
     public ValidatableResponse getContactById(Integer userId) {
-        return given().get(API_DOMAIN_URL + API_VERSION + CONTACT_ENDPOINT + "/" + userId).then();
+        return given().get(API_DOMAIN_URL + API_VERSION + CONTACT_ENDPOINT + "/" + userId).then(); //TODO Would be good to avoid re-factor duplications of : API_DOMAIN_URL + API_VERSION + CONTACT_ENDPOINT. here and in next methods.
     }
 
     public ValidatableResponse getContacts() {
@@ -37,7 +37,7 @@ public class ContactAPI extends TestBaseTNG {
     }
 
     public ValidatableResponse findContact(String firstName, String email) {
-        return given().get(API_DOMAIN_URL + API_VERSION + CONTACT_ENDPOINT + "?firstName=" + firstName + "&email=" + email).then();
+        return given().get(API_DOMAIN_URL + API_VERSION + CONTACT_ENDPOINT + "?firstName=" + firstName + "&email=" + email).then(); //TODO  this method will need to be more flexible. API usually allows to search by one criteria as well. So you could search by email; by name; by email and name.
     }
 
     public ValidatableResponse updateContact(String requestBody, Integer userId) {
