@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -125,7 +124,6 @@ public class TestContactAPI extends TestBaseTNG {
                 apiEndpoints.deleteContact(contactId).statusCode(200);
             }
         }
-        LOGGER.info("List contact is empty");
     }
 
     private Integer getContactID(ContactObject contact) {
