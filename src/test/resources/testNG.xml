@@ -8,7 +8,7 @@
 
     <test name="RestAPI">
         <classes>
-            <class name="tests.TestContactAPI"/>
+            <class name="tests.TestCreateContact"/>
         </classes>
     </test>
 </suite>
