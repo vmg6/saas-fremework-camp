@@ -7,7 +7,8 @@ public enum HttpStatusCodes {
 
     SUCCESS_200(200),
     SUCCESS_201(201),
-    CLIENT_ERROR_400(400);
+    CLIENT_ERROR_400(400),
+    CLIENT_ERROR_404(404);
 
     HttpStatusCodes(Integer code) {
         this.code = code;
