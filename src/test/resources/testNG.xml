@@ -9,6 +9,9 @@
     <test name="RestAPI">
         <classes>
             <class name="tests.TestCreateContact"/>
+            <class name="tests.TestDeleteContact"/>
+            <class name="tests.TestHealthCheck"/>
+            <class name="tests.TestUpdateContact"/>
         </classes>
     </test>
 </suite>
