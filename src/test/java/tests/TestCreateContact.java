@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactData;
 import helpers.ContactService;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -22,6 +23,7 @@ public class TestCreateContact extends TestBaseTNG {
     private Faker faker = new Faker();
     private ContactData contactData;
     private ValidatableResponse validatableResponse;
+    private int contactsNumber;
 
     @Inject
     private ContactsAPI apiEndpoints;
@@ -37,6 +39,7 @@ public class TestCreateContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
+        contactsNumber = contactService.getContactsNumber();
         validatableResponse = apiEndpoints.createContact(contactData.getRequestBody());
     }
 
@@ -48,12 +51,8 @@ public class TestCreateContact extends TestBaseTNG {
 
     @Test
     public void testIsContactCreatedPositive() {
-        // Arrange
-        Integer contactId = contactService.getContactId(validatableResponse);
-        ValidatableResponse response = apiEndpoints.getContactById(contactId);
-
         //Assert
-        contactService.verifyContactBody(response, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
+        Assert.assertEquals(contactsNumber + 1, contactService.getContactsNumber());
     }
 
     @Test(enabled = false)

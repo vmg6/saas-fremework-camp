@@ -30,6 +30,13 @@ public class ContactService {
         return response.extract().jsonPath().get("data.id[0]");
     }
 
+    public int getContactsNumber() {
+        return contactAPI.getContacts().statusCode(200)
+                .extract()
+                .jsonPath()
+                .getList("data.id").size();
+    }
+
     public Integer createNewContactGetId(ContactData contact) {
         return contactAPI.createContact(contact.getRequestBody())
                 .statusCode(201)
