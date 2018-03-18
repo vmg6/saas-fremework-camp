@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactData;
 import helpers.ContactService;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -18,7 +17,7 @@ import org.testng.annotations.Test;
  * Created by @v.matviichenko
  */
 @Listeners({ReportAllureListenerImpl.class})
-public class TestUpdateContact extends TestBaseTNG {
+public class TestDeleteContact extends TestBaseTNG {
     private Faker faker = new Faker();
     private ContactData contactData;
     private ValidatableResponse validatableResponse;
@@ -43,23 +42,17 @@ public class TestUpdateContact extends TestBaseTNG {
     }
 
     @Test
-    public void testUpdateContact() {
-        // Arrange
-        contactData.setFirstName(faker.name().firstName());
-        contactData.setLastName(faker.name().lastName());
-        contactData.setEmail(faker.internet().emailAddress());
-
+    public void testDeleteContact() {
         // Act
-        ValidatableResponse responseUpdate = apiEndpoints.updateContact(contactData.getRequestBody(), contactId);
-        ValidatableResponse responseGet = apiEndpoints.getContactById(contactId);
+        ValidatableResponse response = apiEndpoints.deleteContact(contactId);
 
         // Assert
-        contactService.verifyContactBody(responseUpdate, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
-        contactService.verifyContactBody(responseGet, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
+        contactService.verifyContactBody(response, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
     }
 
-    @AfterClass
-    public void afterClass() {
-        apiEndpoints.deleteContact(contactId).statusCode(200);
+    @Test
+    public void testIsContactDeleted() {
+        // Assert
+        apiEndpoints.getContactById(contactId).statusCode(HttpStatusCodes.CLIENT_ERROR_404.getCode());
     }
 }

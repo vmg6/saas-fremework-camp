@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
@@ -19,6 +19,9 @@ public class TestHealthCheck extends TestBaseTNG {
 
     @Test
     public void testHealthCheck() {
-        apiEndpoints.getHealthCheck().statusCode(200).assertThat().body(equalTo("live"));
+        apiEndpoints.getHealthCheck()
+                .statusCode(200)
+                .assertThat()
+                .body(equalTo("live"));
     }
 }

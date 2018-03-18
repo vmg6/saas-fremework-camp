@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;

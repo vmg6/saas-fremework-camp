@@ -8,10 +8,10 @@
 
     <test name="RestAPI">
         <classes>
-            <class name="tests.TestCreateContact"/>
-            <class name="tests.TestDeleteContact"/>
-            <class name="tests.TestHealthCheck"/>
-            <class name="tests.TestUpdateContact"/>
+            <class name="tests.api.TestCreateContact"/>
+            <class name="tests.api.TestDeleteContact"/>
+            <class name="tests.api.TestHealthCheck"/>
+            <class name="tests.api.TestUpdateContact"/>
         </classes>
     </test>
 </suite>
