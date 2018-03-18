@@ -42,7 +42,7 @@ public class TestCreateContact extends TestBaseTNG {
 
     @Test
     public void testCreateContactPositive() {
-        //Assert
+        // Assert
         contactService.verifyContactBody(validatableResponse, HttpStatusCodes.SUCCESS_201.getCode(), contactData);
     }
 
@@ -58,7 +58,7 @@ public class TestCreateContact extends TestBaseTNG {
 
     @Test(enabled = false)
     public void  testCreateContactWithoutEmailNegative() {
-        //Assert
+        // Assert
         apiEndpoints.createContact(contactData.getRequestBodyWithoutEmail())
                 .statusCode(HttpStatusCodes.CLIENT_ERROR_400.getCode());
     }
@@ -72,14 +72,14 @@ public class TestCreateContact extends TestBaseTNG {
 
     @Test(enabled = false)
     public void  testCreateContactWithoutLastNameNegative() {
-        //Assert
+        // Assert
         apiEndpoints.createContact(contactData.getRequestBodyWithoutLastName())
                 .statusCode(HttpStatusCodes.CLIENT_ERROR_400.getCode());
     }
 
     @Test(enabled = false)
     public void  testCreateContactWithEmptyBodyNegative() {
-        //Assert
+        // Assert
         apiEndpoints.createContact(contactData.getRequestWithEmptyBody())
                 .statusCode(HttpStatusCodes.CLIENT_ERROR_400.getCode());
     }
