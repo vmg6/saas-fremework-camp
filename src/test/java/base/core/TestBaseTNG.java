@@ -1,6 +1,6 @@
 package base.core;
 
-import base.controller.ContactAPI;
+import base.controller.ContactsAPI;
 import com.google.inject.Inject;
 import helpers.ContactService;
 import org.testng.annotations.Guice;
@@ -13,7 +13,7 @@ public abstract class TestBaseTNG {
     protected TestProperties properties = TestProperties.getInstance();
 
     @Inject
-    protected ContactAPI apiEndpoints;
+    protected ContactsAPI apiEndpoints;
 
     @Inject
     protected ContactService contactService;

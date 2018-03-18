@@ -1,6 +1,6 @@
 package base.core;
 
-import base.controller.ContactAPI;
+import base.controller.ContactsAPI;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;
@@ -15,7 +15,7 @@ public class GuiceBinderModule extends AbstractModule {
         bind(TestProperties.class).toInstance(TestProperties.getInstance());
         Names.bindProperties(binder(), TestProperties.getInstance().getServerProperties());
         Names.bindProperties(binder(), TestProperties.getInstance().getCommonProperties());
-        bind(ContactAPI.class).in(Singleton.class);
+        bind(ContactsAPI.class).in(Singleton.class);
         bind(ContactService.class).in(Singleton.class);
     }
 }

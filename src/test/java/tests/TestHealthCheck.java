@@ -1,6 +1,6 @@
 package tests;
 
-import base.controller.ContactAPI;
+import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
 import base.listners.ReportAllureListenerImpl;
 import com.google.inject.Inject;
@@ -15,7 +15,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 @Listeners({ReportAllureListenerImpl.class})
 public class TestHealthCheck extends TestBaseTNG {
     @Inject
-    private ContactAPI apiEndpoints;
+    private ContactsAPI apiEndpoints;
 
     @Test
     public void testHealthCheck() {
