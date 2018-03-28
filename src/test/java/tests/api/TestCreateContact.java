@@ -43,40 +43,40 @@ public class TestCreateContact extends TestBaseTNG {
         validatableResponse = apiEndpoints.createContact(contactData.getRequestBody());
     }
 
-    @Test
+    @Test(groups = {"rest-api"})
     public void testCreateContactPositive() {
         // Assert
         contactService.verifyContactBody(validatableResponse, HttpStatusCodes.SUCCESS_201.getCode(), contactData);
     }
 
-    @Test
+    @Test(groups = {"rest-api"})
     public void testIsContactCreatedPositive() {
         //Assert
         Assert.assertEquals(contactsNumber + 1, contactService.getContactsNumber());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = false, groups = {"rest-api"})
     public void  testCreateContactWithoutEmailNegative() {
         // Assert
         apiEndpoints.createContact(contactData.getRequestBodyWithoutEmail())
                 .statusCode(HttpStatusCodes.CLIENT_ERROR_400.getCode());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = false, groups = {"rest-api"})
     public void  testCreateContactWithoutFirstNameNegative() {
         //Assert
         apiEndpoints.createContact(contactData.getRequestBodyWithoutFirstName())
                 .statusCode(HttpStatusCodes.CLIENT_ERROR_400.getCode());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = false, groups = {"rest-api"})
     public void  testCreateContactWithoutLastNameNegative() {
         // Assert
         apiEndpoints.createContact(contactData.getRequestBodyWithoutLastName())
                 .statusCode(HttpStatusCodes.CLIENT_ERROR_400.getCode());
     }
 
-    @Test(enabled = false)
+    @Test(enabled = false, groups = {"rest-api"})
     public void  testCreateContactWithEmptyBodyNegative() {
         // Assert
         apiEndpoints.createContact(contactData.getRequestWithEmptyBody())

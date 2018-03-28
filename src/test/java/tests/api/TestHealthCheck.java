@@ -17,7 +17,7 @@ public class TestHealthCheck extends TestBaseTNG {
     @Inject
     private ContactsAPI apiEndpoints;
 
-    @Test
+    @Test(groups = {"rest-api"})
     public void testHealthCheck() {
         apiEndpoints.getHealthCheck()
                 .statusCode(200)

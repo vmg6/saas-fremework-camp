@@ -42,7 +42,7 @@ public class TestUpdateContact extends TestBaseTNG {
         contactId = contactService.getContactId(validatableResponse);
     }
 
-    @Test
+    @Test(groups = {"rest-api"})
     public void testUpdateContact() {
         // Arrange
         contactData.setFirstName(faker.name().firstName());
