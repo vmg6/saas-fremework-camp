@@ -15,6 +15,14 @@ One can configure test execution against specific environment using environment 
 | --------------------  | --------- | ------------------------ |------------------------------------------------------ |
 |  ENVIRONMENT          | yes       | none                     | env1  |  
 
-
+# Support groups of test
+* rest-api
+* ui
+* performance
+    
 # Run test
    mvn clean test -Dservers=env1
+   
+# Include or Exclude Specific Groups
+* mvn clean test -DincludeGroups=rest-api
+* mvn clean test -DexcludeGroups=TestGroup3,TestGroup4
