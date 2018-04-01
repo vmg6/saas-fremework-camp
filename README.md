@@ -23,6 +23,5 @@ One can configure test execution against specific environment using environment 
 # Run test
    mvn clean test -Dservers=env1
    
-# Include or Exclude Specific Groups
-* mvn clean test -DincludeGroups=rest-api
-* mvn clean test -DexcludeGroups=TestGroup3,TestGroup4
+# Run specific Groups of test
+* mvn clean test -Dgroups=rest-api

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestRest" >
-    <listeners>
-        <listener class-name="base.listners.ReportAllureListenerImpl"/>
-        <!--<listener class-name="utils.Listeners.AnnotationTransformer"/>-->
-    </listeners>
-    <test name="rest">
+<suite name="SuiteRest">
+    <!--<listeners>-->
+        <!--<listener class-name="base.listners.ReportAllureListenerImpl"/>-->
+        <!--&lt;!&ndash;<listener class-name="utils.Listeners.AnnotationTransformer"/>&ndash;&gt;-->
+    <!--</listeners>-->
+    <test name="CheckRest">
         <groups>
             <run>
                 <include name="rest-api" />
