@@ -38,7 +38,7 @@ public class TestUpdateContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
-        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody());
+        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatusCodes.SUCCESS_201.getCode());
         contactId = contactService.getContactId(validatableResponse);
     }
 
@@ -60,6 +60,6 @@ public class TestUpdateContact extends TestBaseTNG {
 
     @AfterClass(alwaysRun = true)
     public void afterClass() {
-        apiEndpoints.deleteContact(contactId).statusCode(200);
+        apiEndpoints.deleteContact(contactId).statusCode(HttpStatusCodes.SUCCESS_200.getCode());
     }
 }

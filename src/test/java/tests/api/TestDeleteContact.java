@@ -37,7 +37,7 @@ public class TestDeleteContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
-        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody());
+        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatusCodes.SUCCESS_201.getCode());
         contactId = contactService.getContactId(validatableResponse);
     }
 

@@ -47,7 +47,8 @@ public class ContactsAPI extends TestBaseTNG {
         return given().delete(CONTACT_URL + "/" + userId).then();
     }
 
-    public ValidatableResponse patchContact(String requestBody, Integer userId) {
-        return given().contentType("application/json").body(requestBody).patch(CONTACT_URL + "/" + userId).then();
+    public ValidatableResponse patchContact(String param, String value, Integer userId) {
+
+        return given().contentType("application/json").body("{\""+ param +"\":\""+ value +"\"}").patch(CONTACT_URL + "/" + userId).then();
     }
 }
