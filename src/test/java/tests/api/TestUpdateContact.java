@@ -54,7 +54,7 @@ public class TestUpdateContact extends TestBaseTNG {
         ValidatableResponse responseGet = apiEndpoints.getContactById(contactId);
 
         // Assert
-        contactService.verifyContactBody(responseUpdate, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
+        contactService.verifyContactID(validatableResponse);
         contactService.verifyContactBody(responseGet, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
     }
 

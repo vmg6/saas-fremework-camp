@@ -1,11 +1,15 @@
 package helpers;
 
 import base.controller.ContactsAPI;
+import base.references.HttpStatusCodes;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
+import org.hamcrest.MatcherAssert;
 
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import java.util.HashMap;
+
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 
 /**
  * Created by @v.matviichenko
@@ -19,19 +23,26 @@ public class ContactService {
     }
 
     public void verifyContactBody(ValidatableResponse response, Integer statusCode, ContactData contact) {
-        response.statusCode(statusCode)
-                .body("data.id[0]", is(greaterThanOrEqualTo(0)))
-                .body("data.info.email[0]", is(contact.getEmail()))
-                .body("data.info.firstName[0]", is(contact.getFirstName()))
-                .body("data.info.lastName[0]", is(contact.getLastName()));
+        HashMap<String, String> data = response.statusCode(statusCode)
+                .extract()
+                .jsonPath()
+                .get("data[0].info");
+
+        MatcherAssert.assertThat(contact.getFirstName(), is(data.get("firstName")));
+        MatcherAssert.assertThat(contact.getLastName(), is(data.get("lastName")));
+        MatcherAssert.assertThat(contact.getEmail(), is(data.get("email")));
+    }
+
+    public void verifyContactID(ValidatableResponse response) {
+        MatcherAssert.assertThat(getContactId(response), is(greaterThanOrEqualTo(0)));
     }
 
     public Integer getContactId(ValidatableResponse response) {
-        return response.extract().jsonPath().get("data.id[0]");
+        return response.statusCode(HttpStatusCodes.SUCCESS_201.getCode()).extract().jsonPath().get("data.id[0]");
     }
 
     public int getContactsNumber() {
-        return contactAPI.getContacts().statusCode(200)
+        return contactAPI.getContacts().statusCode(HttpStatusCodes.SUCCESS_200.getCode())
                 .extract()
                 .jsonPath()
                 .getList("data.id").size();
@@ -39,7 +50,7 @@ public class ContactService {
 
     public Integer createNewContactGetId(ContactData contact) {
         return contactAPI.createContact(contact.getRequestBody())
-                .statusCode(201)
+                .statusCode(HttpStatusCodes.SUCCESS_201.getCode())
                 .extract().jsonPath()
                 .getInt("data.id[0]");
     }

@@ -47,6 +47,7 @@ public class TestDeleteContact extends TestBaseTNG {
         ValidatableResponse response = apiEndpoints.deleteContact(contactId);
 
         // Assert
+        contactService.verifyContactID(validatableResponse);
         contactService.verifyContactBody(response, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
     }
 

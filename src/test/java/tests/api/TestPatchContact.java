@@ -55,7 +55,7 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Act
         HashMap<String, String> response = apiEndpoints.patchContact("email", email, contactId)
-                .statusCode(200)
+                .statusCode(HttpStatusCodes.SUCCESS_200.getCode())
                 .extract()
                 .jsonPath()
                 .get("data[0].info");
@@ -73,7 +73,7 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Act
         HashMap<String, String> response = apiEndpoints.patchContact("firstName", firstName, contactId)
-                .statusCode(200)
+                .statusCode(HttpStatusCodes.SUCCESS_200.getCode())
                 .extract()
                 .jsonPath()
                 .get("data[0].info");
@@ -91,7 +91,7 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Act
         HashMap<String, String> response = apiEndpoints.patchContact("lastName", lastName, contactId)
-                .statusCode(200)
+                .statusCode(HttpStatusCodes.SUCCESS_200.getCode())
                 .extract()
                 .jsonPath()
                 .get("data[0].info");

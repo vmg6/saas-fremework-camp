@@ -46,6 +46,7 @@ public class TestCreateContact extends TestBaseTNG {
     @Test(groups = {"rest-api"})
     public void testCreateContactPositive() {
         // Assert
+        contactService.verifyContactID(validatableResponse);
         contactService.verifyContactBody(validatableResponse, HttpStatusCodes.SUCCESS_201.getCode(), contactData);
     }
 
@@ -85,6 +86,6 @@ public class TestCreateContact extends TestBaseTNG {
 
     @AfterClass(alwaysRun = true)
     public void afterClass() {
-        apiEndpoints.deleteContact(contactService.getContactId(validatableResponse)).statusCode(200);
+        apiEndpoints.deleteContact(contactService.getContactId(validatableResponse)).statusCode(HttpStatusCodes.SUCCESS_200.getCode());
     }
 }
