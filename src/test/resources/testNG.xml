@@ -11,11 +11,8 @@
                 <include name="rest-api" />
             </run>
         </groups>
-        <classes>
-            <class name="tests.api.TestCreateContact"/>
-            <class name="tests.api.TestDeleteContact"/>
-            <class name="tests.api.TestHealthCheck"/>
-            <class name="tests.api.TestUpdateContact"/>
-        </classes>
+        <packages>
+            <package name="tests.api.*" />
+        </packages>
     </test>
 </suite>
