@@ -30,7 +30,7 @@ public class TestUpdateContact extends TestBaseTNG {
     @Inject
     private ContactService contactService;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void beforeClass() {
         contactData = new ContactData(
                 faker.name().firstName(),
@@ -58,7 +58,7 @@ public class TestUpdateContact extends TestBaseTNG {
         contactService.verifyContactBody(responseGet, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void afterClass() {
         apiEndpoints.deleteContact(contactId).statusCode(200);
     }

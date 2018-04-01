@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="REST API Test" >
+<suite name="TestRest" >
     <listeners>
         <listener class-name="base.listners.ReportAllureListenerImpl"/>
         <!--<listener class-name="utils.Listeners.AnnotationTransformer"/>-->
     </listeners>
-
-    <test name="RestAPI">
-
+    <test name="rest">
         <groups>
             <run>
-                <include name = "rest-api" />
+                <include name="rest-api" />
             </run>
         </groups>
-
         <classes>
             <class name="tests.api.TestCreateContact"/>
             <class name="tests.api.TestDeleteContact"/>

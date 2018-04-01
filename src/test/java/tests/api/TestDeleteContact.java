@@ -29,7 +29,7 @@ public class TestDeleteContact extends TestBaseTNG {
     @Inject
     private ContactService contactService;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void beforeClass() {
         contactData = new ContactData(
                 faker.name().firstName(),

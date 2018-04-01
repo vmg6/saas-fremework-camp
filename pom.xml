@@ -32,10 +32,9 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/testNG.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
-                    <!--<argLine>-Drp.launch=${envr} -Drp.tags="${includeTags};${platform};${browser}"</argLine>-->
+                    <!--<argLine>-->
+                         <!-- -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"-->
+                    <!--</argLine>-->
                 </configuration>
                 <dependencies>
                     <dependency>
