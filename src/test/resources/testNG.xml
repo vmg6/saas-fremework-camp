@@ -15,4 +15,15 @@
             <package name="tests.api.*" />
         </packages>
     </test>
+
+    <test name="ServiceCases">
+        <groups>
+            <run>
+                <include name="service" />
+            </run>
+        </groups>
+        <packages>
+            <package name="tests.service.*" />
+        </packages>
+    </test>
 </suite>
