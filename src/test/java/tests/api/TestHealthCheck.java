@@ -4,6 +4,7 @@ import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
 import base.listners.ReportAllureListenerImpl;
 import com.google.inject.Inject;
+import org.apache.http.HttpStatus;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
@@ -20,7 +21,7 @@ public class TestHealthCheck extends TestBaseTNG {
     @Test(groups = {"rest-api"})
     public void testHealthCheck() {
         apiEndpoints.getHealthCheck()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .assertThat()
                 .body(equalTo("live"));
     }

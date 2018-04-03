@@ -3,12 +3,12 @@ package tests.api;
 import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
 import base.listners.ReportAllureListenerImpl;
-import base.references.HttpStatusCodes;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactData;
 import helpers.ContactService;
+import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -37,7 +37,7 @@ public class TestDeleteContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
-        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatusCodes.SUCCESS_201.getCode());
+        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatus.SC_CREATED);
         contactId = contactService.getContactId(validatableResponse);
     }
 
@@ -48,12 +48,12 @@ public class TestDeleteContact extends TestBaseTNG {
 
         // Assert
         contactService.verifyContactID(validatableResponse);
-        contactService.verifyContactBody(response, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
+        contactService.verifyContactBody(response, HttpStatus.SC_OK, contactData);
     }
 
     @Test(groups = {"rest-api"})
     public void testIsContactDeleted() {
         // Assert
-        apiEndpoints.getContactById(contactId).statusCode(HttpStatusCodes.CLIENT_ERROR_404.getCode());
+        apiEndpoints.getContactById(contactId).statusCode(HttpStatus.SC_NOT_FOUND);
     }
 }

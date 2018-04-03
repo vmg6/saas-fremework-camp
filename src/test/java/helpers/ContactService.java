@@ -1,9 +1,9 @@
 package helpers;
 
 import base.controller.ContactsAPI;
-import base.references.HttpStatusCodes;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
+import org.apache.http.HttpStatus;
 import org.hamcrest.MatcherAssert;
 
 import java.util.HashMap;
@@ -38,11 +38,11 @@ public class ContactService {
     }
 
     public Integer getContactId(ValidatableResponse response) {
-        return response.statusCode(HttpStatusCodes.SUCCESS_201.getCode()).extract().jsonPath().get("data.id[0]");
+        return response.statusCode(HttpStatus.SC_CREATED).extract().jsonPath().get("data.id[0]");
     }
 
     public int getContactsNumber() {
-        return contactAPI.getContacts().statusCode(HttpStatusCodes.SUCCESS_200.getCode())
+        return contactAPI.getContacts().statusCode(HttpStatus.SC_OK)
                 .extract()
                 .jsonPath()
                 .getList("data.id").size();
@@ -50,7 +50,7 @@ public class ContactService {
 
     public Integer createNewContactGetId(ContactData contact) {
         return contactAPI.createContact(contact.getRequestBody())
-                .statusCode(HttpStatusCodes.SUCCESS_201.getCode())
+                .statusCode(HttpStatus.SC_CREATED)
                 .extract().jsonPath()
                 .getInt("data.id[0]");
     }

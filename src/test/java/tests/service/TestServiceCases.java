@@ -24,7 +24,6 @@ import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
 public class TestServiceCases extends TestBaseTNG {
     private Faker faker = new Faker();
     private ContactData contactData;
-    private int contactsNumber;
 
     @Inject
     private ContactsAPI apiEndpoints;
@@ -39,12 +38,12 @@ public class TestServiceCases extends TestBaseTNG {
                 faker.name().lastName(),
                 faker.internet().emailAddress()
         );
-
-        contactsNumber = contactService.getContactsNumber();
     }
 
     @Test(groups = {"service"})
     public void testServiceCaseFirst() {
+        int listContactIds = contactService.getContactsNumber();
+
         //obtain contact ID
         Integer contactId = apiEndpoints.createContact(contactData.getRequestBody())
                 .statusCode(HttpStatus.SC_CREATED)
@@ -58,14 +57,37 @@ public class TestServiceCases extends TestBaseTNG {
         contactService.verifyContactBody(apiEndpoints.getContactById(contactId), HttpStatus.SC_OK, contactData);
 
         //verify just created contact is listed
-        Assert.assertEquals(contactService.getContactsNumber(), contactsNumber + 1);
+        Assert.assertEquals(contactService.getContactsNumber(), listContactIds + 1);
 
         //delete contact
         apiEndpoints.deleteContact(contactId).statusCode(HttpStatus.SC_OK);
-        Assert.assertEquals(contactService.getContactsNumber(), contactsNumber);
+        Assert.assertEquals(contactService.getContactsNumber(), listContactIds);
 
         //verify contact is not available
         apiEndpoints.getContactById(contactId).statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    @Test(groups = {"service"})
+    public void testServiceCaseSecond() {
+        int listContactIds = contactService.getContactsNumber();
+
+        //obtain contact ID
+        int contactId = apiEndpoints.createContact(contactData.getRequestBody())
+                .statusCode(HttpStatus.SC_CREATED)
+                .extract()
+                .jsonPath()
+                .get("data.id[0]");
+
+        MatcherAssert.assertThat(contactId, is(greaterThanOrEqualTo(0)));
+
+        //verify contacts list length is +1
+        Assert.assertEquals(listContactIds + 1, contactService.getContactsNumber(), "Number of contacts are not equal");
+
+        //delete contact
+        apiEndpoints.deleteContact(contactId).statusCode(200);
+
+        //verify contacts list length is -1
+        Assert.assertEquals(contactId, contactService.getContactsNumber());
     }
 
 }

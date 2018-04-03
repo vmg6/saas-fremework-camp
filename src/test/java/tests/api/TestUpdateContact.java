@@ -3,12 +3,12 @@ package tests.api;
 import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
 import base.listners.ReportAllureListenerImpl;
-import base.references.HttpStatusCodes;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactData;
 import helpers.ContactService;
+import org.apache.http.HttpStatus;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
@@ -38,7 +38,7 @@ public class TestUpdateContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
-        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatusCodes.SUCCESS_201.getCode());
+        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatus.SC_CREATED);
         contactId = contactService.getContactId(validatableResponse);
     }
 
@@ -55,11 +55,11 @@ public class TestUpdateContact extends TestBaseTNG {
 
         // Assert
         contactService.verifyContactID(validatableResponse);
-        contactService.verifyContactBody(responseGet, HttpStatusCodes.SUCCESS_200.getCode(), contactData);
+        contactService.verifyContactBody(responseGet, HttpStatus.SC_OK, contactData);
     }
 
     @AfterClass(alwaysRun = true)
     public void afterClass() {
-        apiEndpoints.deleteContact(contactId).statusCode(HttpStatusCodes.SUCCESS_200.getCode());
+        apiEndpoints.deleteContact(contactId).statusCode(HttpStatus.SC_OK);
     }
 }

@@ -3,12 +3,12 @@ package tests.api;
 import base.controller.ContactsAPI;
 import base.core.TestBaseTNG;
 import base.listners.ReportAllureListenerImpl;
-import base.references.HttpStatusCodes;
 import com.github.javafaker.Faker;
 import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactData;
 import helpers.ContactService;
+import org.apache.http.HttpStatus;
 import org.hamcrest.MatcherAssert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -44,7 +44,7 @@ public class TestPatchContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
-        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatusCodes.SUCCESS_201.getCode());
+        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatus.SC_CREATED);
         contactId = contactService.getContactId(validatableResponse);
     }
 
@@ -55,7 +55,7 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Act
         HashMap<String, String> response = apiEndpoints.patchContact("email", email, contactId)
-                .statusCode(HttpStatusCodes.SUCCESS_200.getCode())
+                .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .jsonPath()
                 .get("data[0].info");
@@ -73,7 +73,7 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Act
         HashMap<String, String> response = apiEndpoints.patchContact("firstName", firstName, contactId)
-                .statusCode(HttpStatusCodes.SUCCESS_200.getCode())
+                .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .jsonPath()
                 .get("data[0].info");
@@ -91,7 +91,7 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Act
         HashMap<String, String> response = apiEndpoints.patchContact("lastName", lastName, contactId)
-                .statusCode(HttpStatusCodes.SUCCESS_200.getCode())
+                .statusCode(HttpStatus.SC_OK)
                 .extract()
                 .jsonPath()
                 .get("data[0].info");
@@ -109,11 +109,11 @@ public class TestPatchContact extends TestBaseTNG {
 
         // Assert
         apiEndpoints.patchContact("email", email, contactId)
-                .statusCode(HttpStatusCodes.CLIENT_ERROR_404.getCode());
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     @AfterClass(alwaysRun = true)
     public void afterClass() {
-        apiEndpoints.deleteContact(contactId).statusCode(HttpStatusCodes.SUCCESS_200.getCode());
+        apiEndpoints.deleteContact(contactId).statusCode(HttpStatus.SC_OK);
     }
 }
