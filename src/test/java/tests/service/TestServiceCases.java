@@ -84,7 +84,7 @@ public class TestServiceCases extends TestBaseTNG {
         Assert.assertEquals(listContactIds + 1, contactService.getContactsNumber(), "Number of contacts are not equal");
 
         //delete contact
-        apiEndpoints.deleteContact(contactId).statusCode(200);
+        apiEndpoints.deleteContact(contactId).statusCode(HttpStatus.SC_OK);
 
         //verify contacts list length is -1
         Assert.assertEquals(contactId, contactService.getContactsNumber());
