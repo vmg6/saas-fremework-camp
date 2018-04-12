@@ -2,6 +2,7 @@ package base.controller;
 
 import base.core.TestBaseTNG;
 import com.google.inject.Inject;
+import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.ValidatableResponse;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -24,7 +25,7 @@ public class ContactsAPI extends TestBaseTNG {
     }
 
     public ValidatableResponse createContact(String requestBody) {
-        return given().contentType("application/json").body(requestBody).post(CONTACT_URL).then();
+        return given().contentType(ContentType.JSON).body(requestBody).post(CONTACT_URL).then();
     }
 
     public ValidatableResponse getContactById(Integer userId) {
@@ -40,7 +41,7 @@ public class ContactsAPI extends TestBaseTNG {
     }
 
     public ValidatableResponse updateContact(String requestBody, Integer userId) {
-        return given().contentType("application/json").body(requestBody).put(CONTACT_URL + "/" + userId).then();
+        return given().contentType(ContentType.JSON).body(requestBody).put(CONTACT_URL + "/" + userId).then();
     }
 
     public ValidatableResponse deleteContact(Integer userId) {
@@ -49,6 +50,6 @@ public class ContactsAPI extends TestBaseTNG {
 
     public ValidatableResponse patchContact(String param, String value, Integer userId) {
 
-        return given().contentType("application/json").body("{\""+ param +"\":\""+ value +"\"}").patch(CONTACT_URL + "/" + userId).then();
+        return given().contentType(ContentType.JSON).body("{\""+ param +"\":\""+ value +"\"}").patch(CONTACT_URL + "/" + userId).then();
     }
 }
