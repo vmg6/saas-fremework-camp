@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import com.jayway.restassured.response.ValidatableResponse;
 import helpers.ContactData;
 import helpers.ContactService;
+import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,6 @@ import org.testng.annotations.Test;
 public class TestFindContact extends TestBaseTNG {
     private Faker faker = new Faker();
     private ContactData contactData;
-    private ValidatableResponse validatableResponse;
 
     @Inject
     private ContactsAPI apiEndpoints;
@@ -32,11 +32,12 @@ public class TestFindContact extends TestBaseTNG {
                 faker.internet().emailAddress()
         );
 
-        validatableResponse = apiEndpoints.createContact(contactData.getRequestBody());
+        apiEndpoints.createContact(contactData.getRequestBody()).statusCode(HttpStatus.SC_CREATED);
     }
 
     @Test(groups = {"rest-api"})
     public void testFindContact() {
-
+        ValidatableResponse response = apiEndpoints.findContact(contactData.getFirstName(), contactData.getEmail());
+        contactService.verifyContactBody(response, HttpStatus.SC_OK, contactData);
     }
 }
