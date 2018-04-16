@@ -21,5 +21,8 @@ One can configure test execution against specific environment using environment 
 * service
 * performance
     
-# Run test
+# Run test to check rest
    mvn clean test -Dservers=env1 -Dgroups=rest-api
+   
+# Run test to check ui
+   mvn clean test -Dservers=env1 -Dgroups=ui
