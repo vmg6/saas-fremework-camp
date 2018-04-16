@@ -23,6 +23,3 @@ One can configure test execution against specific environment using environment 
     
 # Run test
    mvn clean test -Dservers=env1 -Dgroups=rest-api
-   
-# Run specific Groups of test
-* mvn clean test -Dgroups=rest-api

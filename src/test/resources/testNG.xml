@@ -16,6 +16,17 @@
         </packages>
     </test>
 
+    <test name="CheckUI">
+        <groups>
+            <run>
+                <include name="ui" />
+            </run>
+        </groups>
+        <packages>
+            <package name="tests.ui.*" />
+        </packages>
+    </test>
+
     <test name="ServiceCases">
         <groups>
             <run>
