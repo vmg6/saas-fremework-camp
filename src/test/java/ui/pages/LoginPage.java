@@ -1,7 +1,9 @@
 package ui.pages;
 
+import base.core.TreeNode;
 import base.core.UIRepository;
-import org.apache.log4j.Logger;
+import base.ui.components.Body;
+import base.ui.components.Form;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -9,20 +11,14 @@ import org.openqa.selenium.WebDriver;
  */
 public class LoginPage extends UIRepository {
 
-    private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
-
     public LoginPage(WebDriver driver) {
         super(driver);
-//        TreeNode body =
-//                addElement((TreeNode) null, "body", "xpath=/html/body", Body.class);
-//        TreeNode form =
-//                addElement(body, "Form", "id='login'", Form.class);
+        TreeNode body =
+                addElement((TreeNode) null, "body", "xpath=/html/body", Body.class);
+        TreeNode form =
+                addElement(body, "Form", "id='box-login'", Form.class);
 //        addElement(form, "Username", "id='Username'", Edit.class);
 //        addElement(form, "Password", "id='Password'", Edit.class);
-//        addElement(form, "SignIn", "xpath=//a[@type='submit']", Button.class);
-//        addElement(body, "ErrorAlert", "class='error'", Text.class);
-
-//        waitForElement("Form");
     }
 
 //    public boolean isErrorPresent() {
