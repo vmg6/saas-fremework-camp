@@ -17,7 +17,4 @@ public abstract class TestBaseTNG {
 
     @Inject
     protected ContactService contactService;
-
-    @Inject
-    protected Browser browser;
 }

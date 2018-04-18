@@ -13,7 +13,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  * Created by @v.matviichenko
  */
 public class Browser {
-
     @Inject
     public Browser() {
 
@@ -22,12 +21,14 @@ public class Browser {
     public WebDriver getChromeDriver() {
         ChromeDriverManager.getInstance().setup();
         WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
         return driver;
     }
 
     public WebDriver getFirefoxDriver() {
         FirefoxDriverManager.getInstance().setup();
         WebDriver driver = new FirefoxDriver();
+        driver.manage().window().maximize();
         return driver;
     }
 
