@@ -22,7 +22,7 @@ public class TestLogin extends TestBaseTNG {
     @Inject
     private Browser browser;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void beforeClass() {
         driver = browser.getChromeDriver();
         driver.get(properties.getServerProperty("ui.admin.url"));
@@ -30,7 +30,7 @@ public class TestLogin extends TestBaseTNG {
         adminPage = new AdminPage(driver);
     }
 
-    @Test
+    @Test(groups = {"ui"})
     public void testLoginLogoutUser() {
         loginPage.waitUntilFormAppear();
         loginPage.setUsername(properties.getServerProperty("username"));
@@ -40,7 +40,7 @@ public class TestLogin extends TestBaseTNG {
         Assert.assertTrue(adminPage.isMenuPresent());
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void afterClass() {
         driver.quit();
     }
