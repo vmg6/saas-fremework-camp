@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class LoginPage {
     private WebDriver driver;
+    By userName = By.cssSelector("input[name='username']");
+    By userPassword = By.cssSelector("input[name='password']");
+    By userLogin = By.cssSelector("button[name='login']");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -21,15 +24,15 @@ public class LoginPage {
     }
 
     public void setUsername(String username) {
-        driver.findElement(By.cssSelector("input[name='username']")).sendKeys(username);
+        driver.findElement(userName).sendKeys(username);
     }
 
     public void setPassword(String password) {
-        driver.findElement(By.cssSelector("input[name='password']")).sendKeys(password);
+        driver.findElement(userPassword).sendKeys(password);
     }
 
     public void clickOnLogin() {
-        driver.findElement(By.cssSelector("button[name='login']")).click();
+        driver.findElement(userLogin).click();
     }
 
 }
