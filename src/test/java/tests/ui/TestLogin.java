@@ -32,10 +32,9 @@ public class TestLogin extends TestBaseTNG {
 
     @Test(groups = {"ui"})
     public void testLoginLogoutUser() {
-        loginPage.waitUntilFormAppear();
-        loginPage.setUsername(properties.getServerProperty("username"));
-        loginPage.setPassword(properties.getServerProperty("password"));
-        loginPage.clickOnLogin();
+        loginPage.loginAsAdmin(
+                properties.getServerProperty("username"),
+                properties.getServerProperty("password"));
 
         Assert.assertTrue(adminPage.isMenuPresent());
     }

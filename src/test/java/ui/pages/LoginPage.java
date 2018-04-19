@@ -14,13 +14,14 @@ public class LoginPage {
     By userName = By.cssSelector("input[name='username']");
     By userPassword = By.cssSelector("input[name='password']");
     By userLogin = By.cssSelector("button[name='login']");
+    By waitForm = By.id("box-login");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void waitUntilFormAppear() {
-        new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOfElementLocated(By.id("box-login")));
+        new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOfElementLocated(waitForm));
     }
 
     public void setUsername(String username) {
@@ -33,6 +34,13 @@ public class LoginPage {
 
     public void clickOnLogin() {
         driver.findElement(userLogin).click();
+    }
+
+    public void loginAsAdmin(String username, String password) {
+        this.waitUntilFormAppear();
+        this.setUsername(username);
+        this.setPassword(password);
+        this.clickOnLogin();
     }
 
 }
