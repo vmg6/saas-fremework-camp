@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,10 +23,23 @@ public class AdminPage {
         new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOfElementLocated(By.className("logotype")));
     }
 
-    public boolean isMenuPresent() {
+    public List<WebElement> getMenuItemsList() {
         waitAdminPageAppear();
         WebElement menu = driver.findElement(By.id("box-apps-menu"));
-        List<WebElement> menuItems = menu.findElements(By.tagName("li"));
-        return menuItems.size() > 1;
+        List<WebElement> menuItems = menu.findElements(By.id("app-"));
+        return menuItems;
+    }
+
+    public HashMap<String, Boolean> checkTagOnMenuItem() {
+        HashMap<String, Boolean> elements = new HashMap<>();
+        for (int i = 0; i < getMenuItemsList().size(); i ++) {
+            getMenuItemsList().get(i).click();
+            elements.put(getMenuItemsList().get(i).getText(), areElementPresetOnPage());
+        }
+        return elements;
+    }
+
+    private boolean areElementPresetOnPage() {
+        return driver.findElements(By.tagName("h1")).size() > 0;
     }
 }

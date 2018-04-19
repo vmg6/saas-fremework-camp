@@ -11,10 +11,12 @@ import org.testng.annotations.Test;
 import ui.pages.AdminPage;
 import ui.pages.LoginPage;
 
+import java.util.Map;
+
 /**
  * Created by @v.matviichenko
  */
-public class TestLogin extends TestBaseTNG {
+public class TestAdmin extends TestBaseTNG {
     private static WebDriver driver;
     private static LoginPage loginPage;
     private static AdminPage adminPage;
@@ -36,7 +38,14 @@ public class TestLogin extends TestBaseTNG {
                 properties.getServerProperty("username"),
                 properties.getServerProperty("password"));
 
-        Assert.assertTrue(adminPage.isMenuPresent());
+        Assert.assertFalse(adminPage.getMenuItemsList().isEmpty(), "Can not login into");
+    }
+
+    @Test(groups = {"ui"}, dependsOnMethods = "testLoginLogoutUser")
+    public void testIsPresentElementOnPage() {
+        for (Map.Entry<String, Boolean> elements : adminPage.checkTagOnMenuItem().entrySet()) {
+            Assert.assertTrue(elements.getValue(), ""+ elements.getKey() +"");
+        }
     }
 
     @AfterClass(alwaysRun = true)
