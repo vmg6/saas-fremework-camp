@@ -30,7 +30,7 @@ public class AdminPage {
         return menuItems;
     }
 
-    public HashMap<String, Boolean> checkTagOnMenuItem() {
+    public HashMap<String, Boolean> checkTagOnPage() {
         HashMap<String, Boolean> elements = new HashMap<>();
         for (int i = 0; i < getMenuItemsList().size(); i ++) {
             getMenuItemsList().get(i).click();

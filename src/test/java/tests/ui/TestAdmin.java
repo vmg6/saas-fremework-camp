@@ -43,7 +43,7 @@ public class TestAdmin extends TestBaseTNG {
 
     @Test(groups = {"ui"}, dependsOnMethods = "testLoginLogoutUser")
     public void testIsPresentElementOnPage() {
-        for (Map.Entry<String, Boolean> elements : adminPage.checkTagOnMenuItem().entrySet()) {
+        for (Map.Entry<String, Boolean> elements : adminPage.checkTagOnPage().entrySet()) {
             Assert.assertTrue(elements.getValue(), ""+ elements.getKey() +"");
         }
     }
