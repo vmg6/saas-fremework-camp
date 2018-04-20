@@ -31,12 +31,12 @@ public class AdminPage {
     }
 
     public HashMap<String, Boolean> checkTagOnPage() {
-        HashMap<String, Boolean> elements = new HashMap<>();
+        HashMap<String, Boolean> menuItems = new HashMap<>();
         for (int i = 0; i < getMenuItemsList().size(); i ++) {
             getMenuItemsList().get(i).click();
-            elements.put(getMenuItemsList().get(i).getText(), areElementPresetOnPage());
+            menuItems.put(getMenuItemsList().get(i).getText(), areElementPresetOnPage());
         }
-        return elements;
+        return menuItems;
     }
 
     private boolean areElementPresetOnPage() {
