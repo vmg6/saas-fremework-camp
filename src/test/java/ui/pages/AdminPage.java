@@ -35,6 +35,13 @@ public class AdminPage {
         for (int i = 0; i < getMenuItemsList().size(); i ++) {
             getMenuItemsList().get(i).click();
             menuItems.put(getMenuItemsList().get(i).getText(), areElementPresetOnPage());
+            List<WebElement> subMenuItem = getMenuItemsList().get(i).findElements(By.cssSelector("li[id^=doc]"));
+            if(subMenuItem.size() > 0) {
+                for (int j = 1; j <= subMenuItem.size(); j++) {
+                    driver.findElement(By.cssSelector("li[id^=doc]:nth-child("+ j +") a")).click();
+                    menuItems.put(getMenuItemsList().get(j).getText(), areElementPresetOnPage());
+                }
+            }
         }
         return menuItems;
     }
