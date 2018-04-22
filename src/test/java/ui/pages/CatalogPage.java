@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * Created by @v.matviichenko
  */
-public class CatalogMainPage {
+public class CatalogPage {
     private WebDriver driver;
 
-    public CatalogMainPage(WebDriver driver) {
+    public CatalogPage(WebDriver driver) {
         this.driver = driver;
     }
 

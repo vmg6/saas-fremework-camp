@@ -58,7 +58,7 @@ public class AddProductPage {
         driver.findElement(By.xpath("//input[@name='prices[USD]']")).sendKeys(String.valueOf(value));
     }
 
-    public CatalogMainPage addProductInfo(String productName, File imagePath, String productDescription, double productPrice) {
+    public CatalogPage addProductInfo(String productName, File imagePath, String productDescription, double productPrice) {
         setProductStatus("Enabled");
         setProductName(productName);
         uploadImage(imagePath);
@@ -69,6 +69,6 @@ public class AddProductPage {
         setProductPrice(productPrice);
 
         clickOnSaveButton();
-        return new CatalogMainPage(driver);
+        return new CatalogPage(driver);
     }
 }

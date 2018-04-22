@@ -29,11 +29,11 @@ public class LeftMenu {
         return menuItems;
     }
 
-    public CatalogMainPage clickOnCatalog(String menuItemName) {
+    public CatalogPage clickOnCatalog(String menuItemName) {
         for (WebElement menuItem : getMenuItemsList()) {
             if (menuItem.findElement(By.tagName("a")).getText().equals(menuItemName)) {
                 menuItem.click();
-                return new CatalogMainPage(driver);
+                return new CatalogPage(driver);
             }
         }
         return null;
