@@ -32,9 +32,9 @@ public class LoginPage {
         driver.findElement(userPassword).sendKeys(password);
     }
 
-    public AdminPage clickOnLogin() {
+    public LeftMenu clickOnLogin() {
         driver.findElement(userLogin).click();
-        return new AdminPage(driver);
+        return new LeftMenu(driver);
     }
 
     public void loginAsAdmin(String username, String password) {

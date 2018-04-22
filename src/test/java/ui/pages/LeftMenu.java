@@ -12,10 +12,9 @@ import java.util.List;
 /**
  * Created by @v.matviichenko
  */
-public class AdminPage {
+public class LeftMenu {
     private WebDriver driver;
-
-    public AdminPage(WebDriver driver) {
+    public LeftMenu(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -28,6 +27,16 @@ public class AdminPage {
         WebElement menu = driver.findElement(By.id("box-apps-menu"));
         List<WebElement> menuItems = menu.findElements(By.id("app-"));
         return menuItems;
+    }
+
+    public CatalogMainPage clickOnCatalog(String menuItemName) {
+            for (WebElement menuItem : getMenuItemsList()) {
+                if (menuItem.findElement(By.tagName("a")).getText().equals(menuItemName)) {
+                    menuItem.click();
+                    return new CatalogMainPage(driver);
+                }
+            }
+        return null;
     }
 
     public HashMap<String, Boolean> checkTagOnPage() {
