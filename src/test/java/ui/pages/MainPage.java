@@ -22,9 +22,9 @@ public class MainPage {
         new WebDriverWait(driver,10).until(ExpectedConditions.visibilityOfElementLocated(By.className("content")));
     }
 
-    public CartPage clickOnCart() {
+    public CheckoutPage clickOnCart() {
         driver.findElement(By.id("cart-wrapper")).click();
-        return new CartPage(driver);
+        return new CheckoutPage(driver);
     }
 
     public List<WebElement> getProductList() {

@@ -11,6 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ui.pages.CatalogPage;
+import ui.pages.CheckoutPage;
 import ui.pages.LeftMenu;
 import ui.pages.LoginPage;
 import ui.pages.MainPage;
@@ -64,8 +65,7 @@ public class TestHomeWork extends TestBaseTNG {
     public void testCreateNewProduct() {
         String productDescription = "Automation" + "-" + PRODUCT_NAME;
 
-        catalogMainPage = leftMenu.clickOnCatalog("Catalog")
-                .clickOnAddNewProduct()
+        catalogMainPage = leftMenu.clickOnCatalog("Catalog").clickOnAddNewProduct()
                 .addProductInfo(PRODUCT_NAME, IMAGE_PATH, productDescription, 35);
 
         Assert.assertTrue(catalogMainPage.isProductAdd(PRODUCT_NAME), "Can not find product");
@@ -78,7 +78,11 @@ public class TestHomeWork extends TestBaseTNG {
         mainPage.clickOnProduct(PRODUCT_NAME)
                 .clickOnAddToCart(1)
                 .clickOnRandomProduct()
-                .clickOnAddToCart(2);
+                .clickOnAddToCart(2)
+                .clickOnCart()
+                .removeProductFromCart();
+
+        Assert.assertTrue(new CheckoutPage(driver).emptyCart(), "Products are not deleted from cart");
     }
 
     @AfterClass(alwaysRun = true)
