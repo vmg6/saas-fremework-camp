@@ -30,12 +30,12 @@ public class LeftMenu {
     }
 
     public CatalogMainPage clickOnCatalog(String menuItemName) {
-            for (WebElement menuItem : getMenuItemsList()) {
-                if (menuItem.findElement(By.tagName("a")).getText().equals(menuItemName)) {
-                    menuItem.click();
-                    return new CatalogMainPage(driver);
-                }
+        for (WebElement menuItem : getMenuItemsList()) {
+            if (menuItem.findElement(By.tagName("a")).getText().equals(menuItemName)) {
+                menuItem.click();
+                return new CatalogMainPage(driver);
             }
+        }
         return null;
     }
 

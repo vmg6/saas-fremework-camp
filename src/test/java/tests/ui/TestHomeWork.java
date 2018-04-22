@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import ui.pages.CatalogMainPage;
 import ui.pages.LeftMenu;
 import ui.pages.LoginPage;
 
@@ -25,6 +26,7 @@ public class TestHomeWork extends TestBaseTNG {
     private static WebDriver driver;
     private static LoginPage loginPage;
     private static LeftMenu leftMenu;
+    private static CatalogMainPage catalogMainPage;
 
     @Inject
     private Browser browser;
@@ -54,11 +56,14 @@ public class TestHomeWork extends TestBaseTNG {
     }
 
     @Test(groups = {"ui"}, dependsOnMethods = "testLoginLogoutUser")
-    public void testCartOperation() {
+    public void testCreateNewProduct() {
+        String productDescription = "Automation" + "-" + PRODUCT_NAME;
 
-        leftMenu.clickOnCatalog("Catalog")
+        catalogMainPage = leftMenu.clickOnCatalog("Catalog")
                 .clickOnAddNewProduct()
-                .addProductInfo(PRODUCT_NAME, IMAGE_PATH);
+                .addProductInfo(PRODUCT_NAME, IMAGE_PATH, productDescription, 35);
+
+        Assert.assertTrue(catalogMainPage.isProductAdd(PRODUCT_NAME), "Can not find product");
     }
 
     @AfterClass(alwaysRun = true)
