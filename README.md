@@ -18,8 +18,6 @@ One can configure test execution against specific environment using environment 
 # Support groups of test
 * rest-api
 * ui
-* service
-* performance
     
 # Run test to check rest
    mvn clean test -Dservers=env1 -Dgroups=rest-api
