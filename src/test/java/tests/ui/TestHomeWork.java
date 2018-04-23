@@ -1,11 +1,12 @@
 package tests.ui;
 
 import base.core.Browser;
+import base.core.Listner;
 import base.core.ResourceUtil;
 import base.core.TestBaseTNG;
 import com.google.inject.Inject;
 import net.bytebuddy.utility.RandomString;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -26,7 +27,7 @@ public class TestHomeWork extends TestBaseTNG {
     private static final File IMAGE_PATH = ResourceUtil.getResourceFile("files/automation.png");
     private static String PROJECT_URL;
     private static String PRODUCT_NAME;
-    private static WebDriver driver;
+    private static EventFiringWebDriver driver;
     private static LeftMenu leftMenu;
     private static CatalogPage catalogMainPage;
     private static MainPage mainPage;
@@ -39,7 +40,9 @@ public class TestHomeWork extends TestBaseTNG {
         PROJECT_URL = properties.getServerProperty("ui.admin.url");
         PRODUCT_NAME = new RandomString(8).nextString();
 
-        driver = browser.getChromeDriver();
+        driver = new EventFiringWebDriver(browser.getChromeDriver());
+        driver.register(new Listner());
+
         driver.get(PROJECT_URL + "/admin");
         leftMenu = new LeftMenu(driver);
         mainPage = new MainPage(driver);
