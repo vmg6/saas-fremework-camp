@@ -1,5 +1,6 @@
 package ui.pages;
 
+import base.core.ResourceUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,64 +12,60 @@ import java.util.List;
  * Created by @v.matviichenko
  */
 public class AddProductPage {
+    private final File imagePath = ResourceUtil.getResourceFile("files/automation.png");
     private WebDriver driver;
+
+    By informationTab = By.xpath("//a[@href='#tab-information']");
+    By priceTab = By.xpath("//a[@href='#tab-prices']");
+    By productName = By.xpath("//input[@name='name[en]']");
+    By saveButton = By.xpath("//button[@name='save']");
+    By image = By.xpath("//input[@name='new_images[]']");
+    By description = By.className("trumbowyg-editor");
+    By title = By.xpath("//input[@name='head_title[en]']");
+    By price = By.xpath("//input[@name='prices[USD]']");
 
     public AddProductPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void setProductStatus(String productStatus) {
+    public void setProductStatus() {
         List<WebElement> labels = driver.findElements(By.xpath("//label"));
         for (WebElement status : labels) {
-            if (new String(status.getAttribute("textContent").trim()).equals(productStatus)) {
+            if (new String(status.getAttribute("textContent").trim()).equals("Enabled")) {
                 status.click();
             }
         }
     }
 
     public void clickOnInformationTab() {
-        driver.findElement(By.xpath("//a[@href='#tab-information']")).click();
+        driver.findElement(informationTab).click();
     }
 
     public void clickOnPriceTab() {
-        driver.findElement(By.xpath("//a[@href='#tab-prices']")).click();
+        driver.findElement(priceTab).click();
     }
 
-    public void setProductName(String productName) {
-        driver.findElement(By.xpath("//input[@name='name[en]']")).sendKeys(productName);
+    public void setProductName(String value) {
+        driver.findElement(productName).sendKeys(value);
     }
 
     public void clickOnSaveButton() {
-        driver.findElement(By.xpath("//button[@name='save']")).click();
+        driver.findElement(saveButton).click();
     }
 
-    public void uploadImage(File imagePath) {
-        driver.findElement(By.xpath("//input[@name='new_images[]']")).sendKeys(imagePath.getAbsolutePath());
+    public void uploadImage() {
+        driver.findElement(image).sendKeys(imagePath.getAbsolutePath());
     }
 
     public void setDescription(String value) {
-        driver.findElement(By.className("trumbowyg-editor")).sendKeys(value);
+        driver.findElement(description).sendKeys(value);
     }
 
     public void setHeadTitle(String value) {
-        driver.findElement(By.xpath("//input[@name='head_title[en]']")).sendKeys(value);
+        driver.findElement(title).sendKeys(value);
     }
 
-    public void setProductPrice(double value) {
-        driver.findElement(By.xpath("//input[@name='prices[USD]']")).sendKeys(String.valueOf(value));
-    }
-
-    public CatalogPage addProductInfo(String productName, File imagePath, String productDescription, double productPrice) {
-        setProductStatus("Enabled");
-        setProductName(productName);
-        uploadImage(imagePath);
-        clickOnInformationTab();
-        setDescription(productDescription);
-        setHeadTitle(productDescription);
-        clickOnPriceTab();
-        setProductPrice(productPrice);
-
-        clickOnSaveButton();
-        return new CatalogPage(driver);
+    public void setProductPrice() {
+        driver.findElement(price).sendKeys(String.valueOf(35));
     }
 }

@@ -29,9 +29,9 @@ public class LeftMenu {
         return menuItems;
     }
 
-    public CatalogPage clickOnCatalog(String menuItemName) {
+    public CatalogPage clickOnCatalog() {
         for (WebElement menuItem : getMenuItemsList()) {
-            if (menuItem.findElement(By.tagName("a")).getText().equals(menuItemName)) {
+            if (menuItem.findElement(By.tagName("a")).getText().equals("Catalog")) {
                 menuItem.click();
                 return new CatalogPage(driver);
             }

@@ -1,6 +1,6 @@
-package base.core;
+package tests.ui;
 
-import com.google.inject.Inject;
+import base.core.TestBaseTNG;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.EdgeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
@@ -8,33 +8,37 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
 
 /**
  * Created by @v.matviichenko
  */
-public class Browser {
-    @Inject
-    public Browser() {
+public class TestHomeWorkFirst extends TestBaseTNG {
+    private final String URL =  properties.getServerProperty("url_test");
 
-    }
-
-    public WebDriver getChromeDriver() {
+    @Test(groups = {"ui"})
+    public void testChrome() {
         ChromeDriverManager.getInstance().setup();
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
-        return driver;
+        driver.get(URL);
+        driver.quit();
     }
 
-    public WebDriver getFirefoxDriver() {
+    @Test(groups = {"ui"})
+    public void testFireFox() {
         FirefoxDriverManager.getInstance().setup();
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
-        return driver;
+        driver.get(URL);
+        driver.quit();
     }
 
-    public WebDriver getEdgeDriver() {
+    @Test(groups = {"ui"}, enabled = false)
+    public void testEdge() {
         EdgeDriverManager.getInstance().setup();
         WebDriver driver = new EdgeDriver();
-        return driver;
+        driver.get(URL);
+        driver.quit();
     }
 }

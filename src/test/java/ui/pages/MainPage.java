@@ -1,5 +1,6 @@
 package ui.pages;
 
+import base.core.TestProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,8 @@ import java.util.Random;
  */
 public class MainPage {
     private WebDriver driver;
+    private TestProperties properties = TestProperties.getInstance();
+
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -43,6 +46,10 @@ public class MainPage {
             }
         }
         return null;
+    }
+
+    public void openMainPage() {
+        driver.get(properties.getServerProperty("ui.admin.url"));
     }
 
     public ProductInfoCard clickOnRandomProduct() {
