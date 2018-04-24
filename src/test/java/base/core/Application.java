@@ -2,8 +2,8 @@ package base.core;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import net.bytebuddy.utility.RandomString;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import ui.pages.AddProductPage;
 import ui.pages.CatalogPage;
 import ui.pages.CheckoutPage;
@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public class Application {
     private final String productName = new RandomString(8).nextString();
-    private WebDriver driver;
+    private EventFiringWebDriver driver;
 
     private LoginPage loginPage;
     private LeftMenu leftMenu;
@@ -31,7 +31,9 @@ public class Application {
 
     public Application() {
         ChromeDriverManager.getInstance().setup();
-        driver = new ChromeDriver();
+        driver = new EventFiringWebDriver(new ChromeDriver());
+        driver.register(new Listner());
+
         driver.manage().window().maximize();
 
         loginPage = new LoginPage(driver);

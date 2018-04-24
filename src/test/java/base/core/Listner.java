@@ -36,7 +36,5 @@ public class Listner extends AbstractWebDriverEventListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
