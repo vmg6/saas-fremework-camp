@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by @v.matviichenko
  */
-public class Listner extends AbstractWebDriverEventListener {
+public class Listener extends AbstractWebDriverEventListener {
     @Override
     public void beforeFindBy(By by, WebElement element, WebDriver driver) {
         System.out.println("Start search for: " + by);

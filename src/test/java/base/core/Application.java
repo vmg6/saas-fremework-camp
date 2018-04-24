@@ -32,7 +32,7 @@ public class Application {
     public Application() {
         ChromeDriverManager.getInstance().setup();
         driver = new EventFiringWebDriver(new ChromeDriver());
-        driver.register(new Listner());
+        driver.register(new Listener());
 
         driver.manage().window().maximize();
 
